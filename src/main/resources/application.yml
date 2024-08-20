@@ -1,0 +1,11 @@
+javax:
+  net:
+    ssl:
+      trustStore: ${TRUSTSTORE_PATH}
+      trustStorePassword : ${TRUSTSTORE_PASSWORD}
+
+opensearch:
+  username: ${OPENSEARCH_USERNAME}
+  password: ${OPENSEARCH_PASSWORD}
+  host : ${OPENSEARCH_HOST}
+  post : ${OPENSEARCH_PORT}
