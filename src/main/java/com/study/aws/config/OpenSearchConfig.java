@@ -64,4 +64,6 @@ public class OpenSearchConfig {
     public OpenSearchClient openSearchClient(){
         return new OpenSearchClient(transport());
     }
+
+
 }
