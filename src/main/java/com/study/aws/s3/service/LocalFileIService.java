@@ -1,24 +1,24 @@
 package com.study.aws.s3.service;
 
 import com.study.aws.s3.dto.FilesDto;
+import com.study.aws.s3.dto.ResourceDto;
 import com.study.aws.s3.entity.Files;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.net.MalformedURLException;
+import java.util.*;
 
 public class LocalFileIService implements FileService{
     private final String fileDir;
-    private final List<Files> filesRepository;
+    private final Map<String, Files> filesRepository;
 
     public LocalFileIService(String fileDir) {
         this.fileDir = fileDir;
-        filesRepository = new ArrayList<>();
+        filesRepository = new HashMap<>();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class LocalFileIService implements FileService{
             String filepath = fileDir + UUID.randomUUID();
             Files files = new Files(file.getOriginalFilename(), filepath);
             file.transferTo(new File(files.getStorePath()));
-            filesRepository.add(files);
+            filesRepository.put(files.getFilename(),files);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +35,20 @@ public class LocalFileIService implements FileService{
 
     @Override
     public List<FilesDto> getAllFiles(){
-        return filesRepository.stream().map(FilesDto::new).toList();
+        return filesRepository.values().stream().map(FilesDto::new).toList();
     }
 
+    @Override
+    public ResourceDto getFileByFilename(String filename) {
+        try {
+            return new ResourceDto(filesRepository.get(filename));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteFile(String filename) {
+
+    }
 }

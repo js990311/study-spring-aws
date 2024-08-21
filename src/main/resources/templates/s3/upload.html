@@ -12,7 +12,7 @@
 <ul>
     <li th:each="file : ${files}">
         <p th:text="${file.getFilename()}"></p>
-        <img th:src="${file.getStorePath()}" alt="접근불가">
+        <img th:src="@{/s3/{filename}(filename=${file.getFilename()})}" alt="접근불가">
     </li>
 </ul>
 </body>
