@@ -45,4 +45,10 @@ public class FileUploadController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, resource.getHeader())
                 .body(resource.getResource());
     }
+
+    @DeleteMapping("/{filename}")
+    public String deleteFile(@PathVariable("filename") String filename){
+        fileService.deleteFile(filename);
+        return "redirect:/s3";
+    }
 }

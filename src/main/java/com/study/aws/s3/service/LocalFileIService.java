@@ -49,6 +49,17 @@ public class LocalFileIService implements FileService{
 
     @Override
     public void deleteFile(String filename) {
-
+        File file = new File(filesRepository.get(filename).getStorePath());
+        try{
+            if(file.exists()){
+                if(file.delete()){
+                   filesRepository.remove(filename);
+                }else {
+                    throw new RuntimeException();
+                }
+            }
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
