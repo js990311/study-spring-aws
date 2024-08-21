@@ -9,3 +9,6 @@ opensearch:
   password: ${OPENSEARCH_PASSWORD}
   host : ${OPENSEARCH_HOST}
   post : ${OPENSEARCH_PORT}
+
+s3:
+  path: ${S3_PATH}
