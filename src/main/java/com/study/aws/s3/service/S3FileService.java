@@ -15,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -79,8 +76,19 @@ public class S3FileService implements FileService{
         }
     }
 
+    @Transactional
     @Override
-    public void deleteFile(String filename) {
-
+    public void deleteFile(Long fileId) {
+        try {
+            Files files = filesRepository.findById(fileId).orElseThrow(EntityNotFoundException::new);
+            filesRepository.delete(files);
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(files.getStorePath())
+                    .build();
+            s3Client.deleteObject(deleteObjectRequest);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }

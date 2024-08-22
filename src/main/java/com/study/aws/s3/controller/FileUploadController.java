@@ -46,9 +46,9 @@ public class FileUploadController {
                 .body(resource.getResource());
     }
 
-    @DeleteMapping("/{filename}")
-    public String deleteFile(@PathVariable("filename") String filename){
-        fileService.deleteFile(filename);
+    @DeleteMapping("/{fileId}")
+    public String deleteFile(@PathVariable("fileId") Long fileId){
+        fileService.deleteFile(fileId);
         return "redirect:/s3";
     }
 }

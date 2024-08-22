@@ -12,5 +12,5 @@ public interface FileService {
     public void saveFile(MultipartFile file);
     public List<FilesDto> getAllFiles();
     public ResourceDto getFileByFilename(Long fileId);
-    public void deleteFile(String filename);
+    public void deleteFile(Long fileId);
 }
