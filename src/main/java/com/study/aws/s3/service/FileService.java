@@ -11,6 +11,6 @@ import java.util.List;
 public interface FileService {
     public void saveFile(MultipartFile file);
     public List<FilesDto> getAllFiles();
-    public ResourceDto getFileByFilename(String filename);
+    public ResourceDto getFileByFilename(Long fileId);
     public void deleteFile(String filename);
 }

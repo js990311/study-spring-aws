@@ -13,13 +13,12 @@ public class ResourceDto {
     private Resource resource;
     private String header;
 
-    public ResourceDto(Files files) throws MalformedURLException {
-        this.filesDto = new FilesDto(files);
-        resource = new UrlResource("file:"+files.getStorePath());
+    public ResourceDto(Resource resource, String fileName) throws MalformedURLException {
+        this.resource = resource;
         this.header = new StringBuilder()
                 .append("attachment;")
                 .append("filename=\"")
-                .append(files.getStorePath())
+                .append(fileName)
                 .append("\"").toString();
 
     }

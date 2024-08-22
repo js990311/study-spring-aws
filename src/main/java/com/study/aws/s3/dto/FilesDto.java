@@ -5,13 +5,14 @@ import lombok.Data;
 
 @Data
 public class FilesDto {
+    private Long id;
     private String filename;
     private String storePath;
     private String extension;
 
     public FilesDto(Files files) {
+        this.id = files.getId();
         this.filename = files.getFilename();
-        this.storePath = files.getStorePath();
         this.extension = files.getExtension();
     }
 }

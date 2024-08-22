@@ -24,4 +24,11 @@ spring:
         bucket: ${S3_BUCKET_NAME}
       region:
         static: ap-northeast-2
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: myuser
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false

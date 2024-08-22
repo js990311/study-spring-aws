@@ -1,18 +1,26 @@
 package com.study.aws.s3.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
+@Entity
 public class Files {
+    @Id @GeneratedValue
     private Long id;
+
+    @Column
     private String filename;
-    private String storePath;
     private String extension;
 
-    public Files(String filename, String storePath) {
+    public Files(String filename) {
         this.filename = filename;
         this.extension = getExtention(filename);
-        this.storePath = storePath + "." + this.extension;
     }
 
     private String getExtention(String filename){
@@ -20,4 +28,7 @@ public class Files {
         return filename.substring(doxIdx+1);
     }
 
+    public String getStorePath() {
+        return id + "." + extension;
+    }
 }

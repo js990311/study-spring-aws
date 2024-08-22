@@ -12,11 +12,11 @@
 <ul>
     <li th:each="file : ${files}">
         <p th:text="${file.getFilename()}"></p>
-        <form th:action="@{/s3/{filename}(filename=${file.getFilename()})}" method="post">
+        <form th:action="@{/s3/{fileId}(fileId=${file.id})}" method="post">
             <input type="hidden" value="delete" name="_method">
             <button type="submit">삭제하기</button>
         </form>
-        <img th:src="@{/s3/{filename}(filename=${file.getFilename()})}" alt="접근불가">
+        <img th:src="@{/s3/{fileId}(fileId=${file.id})}" alt="접근불가">
     </li>
 </ul>
 </body>

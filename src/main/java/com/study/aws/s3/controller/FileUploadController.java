@@ -38,9 +38,9 @@ public class FileUploadController {
     }
 
 
-    @GetMapping("/{filename}")
-    public ResponseEntity<Resource> images(@PathVariable("filename") String filename){
-        ResourceDto resource = fileService.getFileByFilename(filename);
+    @GetMapping("/{fileId}")
+    public ResponseEntity<Resource> images(@PathVariable("fileId") Long fileId){
+        ResourceDto resource = fileService.getFileByFilename(fileId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, resource.getHeader())
                 .body(resource.getResource());
