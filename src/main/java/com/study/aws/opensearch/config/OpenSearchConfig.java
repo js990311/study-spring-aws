@@ -1,4 +1,4 @@
-package com.study.aws.config;
+package com.study.aws.opensearch.config;
 
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
