@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
@@ -43,5 +45,15 @@ class OpenSearchRepositoryTest {
         SampleDocument sampleDocs = openSearchRepository.findById(id);
         assertEquals(id, sampleDocs.getId());
         assertEquals(name, sampleDocs.getName());
+    }
+
+    @Test
+    void findByName(){
+        Long id = 123l;
+        String name = "name";
+        List<SampleDocument> docs = openSearchRepository.findByName(name);
+        assertEquals(1, docs.size());
+        assertEquals(id, docs.getFirst().getId());
+        assertEquals(name, docs.getFirst().getName());
     }
 }

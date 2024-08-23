@@ -14,6 +14,7 @@ import org.opensearch.data.core.OpenSearchOperations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 
 @Configuration
 public class OpenSearchConfig extends AbstractOpenSearchConfiguration {
@@ -61,10 +62,6 @@ public class OpenSearchConfig extends AbstractOpenSearchConfiguration {
 //        ));
 //    }
 //
-    @Bean
-    public OpenSearchOperations openSearchOperations(){
-        return new OpenSearchRestTemplate(opensearchClient());
-    }
 
     @Override
     public RestHighLevelClient opensearchClient() {
