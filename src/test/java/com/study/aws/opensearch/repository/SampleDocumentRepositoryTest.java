@@ -1,9 +1,7 @@
 package com.study.aws.opensearch.repository;
 
 import com.study.aws.opensearch.document.SampleDocument;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,33 +12,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class OpenSearchRepositoryTest {
+class SampleDocumentRepositoryTest {
 
-    @Autowired private OpenSearchRepository openSearchRepository;
+    @Autowired
+    private SampleDocumentRepository repository;
 
     @BeforeEach
     public void before(){
         SampleDocument sampleDocument = new SampleDocument(123l, "name");
-        openSearchRepository.save(sampleDocument);
+        repository.save(sampleDocument);
     }
 
     @AfterEach
     public void after(){
-        openSearchRepository.deleteById(123l);
+        repository.deleteById(123l);
     }
 
     @Test
     void saveAndDelete() {
         SampleDocument sampleDocument = new SampleDocument(1l, "1234");
-        openSearchRepository.save(sampleDocument);
-        openSearchRepository.deleteById(1L);
+        repository.save(sampleDocument);
+        repository.deleteById(1L);
     }
 
     @Test
     void findById() {
         Long id = 123l;
         String name = "name";
-        SampleDocument sampleDocs = openSearchRepository.findById(id);
+        SampleDocument sampleDocs = repository.findById(id).get();
         assertEquals(id, sampleDocs.getId());
         assertEquals(name, sampleDocs.getName());
     }
