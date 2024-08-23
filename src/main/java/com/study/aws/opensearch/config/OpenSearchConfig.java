@@ -7,13 +7,18 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
+import org.opensearch.client.RestHighLevelClient;
 import org.opensearch.client.json.jackson.JacksonJsonpMapper;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.transport.OpenSearchTransport;
 import org.opensearch.client.transport.rest_client.RestClientTransport;
+import org.opensearch.data.client.orhlc.OpenSearchRestTemplate;
+import org.opensearch.data.client.osc.OpenSearchTemplate;
+import org.opensearch.data.core.OpenSearchOperations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.client.ClientConfiguration;
 
 @Configuration
 public class OpenSearchConfig {
@@ -49,10 +54,9 @@ public class OpenSearchConfig {
 
     @Bean
     public RestClient restClient(){
-        return RestClient.builder(openSearchHost())
-                .setHttpClientConfigCallback(
-                        httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(basicCredentialsProvider())
-                ).build();
+        return RestClient.builder(openSearchHost()).setHttpClientConfigCallback(
+                httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(basicCredentialsProvider())
+        ).build();
     }
 
     @Bean
@@ -65,5 +69,16 @@ public class OpenSearchConfig {
         return new OpenSearchClient(transport());
     }
 
+    @Bean
+    public RestHighLevelClient restHighLevelClient(){
+        return new RestHighLevelClient(RestClient.builder(openSearchHost()).setHttpClientConfigCallback(
+                httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(basicCredentialsProvider())
+        ));
+    }
+
+    @Bean
+    public OpenSearchOperations openSearchOperations(){
+        return new OpenSearchRestTemplate(restHighLevelClient());
+    }
 
 }

@@ -8,7 +8,7 @@ opensearch:
   username: ${OPENSEARCH_USERNAME}
   password: ${OPENSEARCH_PASSWORD}
   host : ${OPENSEARCH_HOST}
-  post : ${OPENSEARCH_PORT}
+  port : ${OPENSEARCH_PORT}
 
 s3:
   bucket:

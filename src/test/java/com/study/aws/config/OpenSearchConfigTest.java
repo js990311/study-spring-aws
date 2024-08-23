@@ -7,11 +7,13 @@ import org.opensearch.client.opensearch.indices.IndexSettings;
 import org.opensearch.client.opensearch.indices.PutIndicesSettingsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 @SpringBootTest
 class OpenSearchConfigTest {
     @Autowired
@@ -19,7 +21,7 @@ class OpenSearchConfigTest {
 
     @Test
     public void createIndex() throws IOException {
-        String index = "sample-index";
+        String index = "test-index";
         CreateIndexRequest createIndexRequest = new CreateIndexRequest.Builder().index(index).build();
         client.indices().create(createIndexRequest);
 
